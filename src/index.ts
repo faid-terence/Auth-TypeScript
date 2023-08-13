@@ -6,6 +6,7 @@ import compression from'compression';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
+import router from './routes'
 
 dotenv.config();
 
@@ -32,3 +33,5 @@ mongoose.Promise = Promise;
 mongoose.connect(MONGO_URL)
 .then(()=> console.log("Database Connected.."));
 mongoose.connection.on(`error`, (error: Error)=> console.log(error));
+
+app.use("/", router());
