@@ -45,3 +45,21 @@ export const updateUser = async (
     return res.status(406).json({ error: "Not Acceptable" });
   }
 };
+
+export const fetchUserById = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  try {
+    const { id } = req.params;
+    const user = await getUserById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // If user is found, return the user data
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json({ message: "Oops Server error!" });
+  }
+};
